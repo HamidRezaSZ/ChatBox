@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
     $('#signup-btn').on('click', function () {
         $('.home-div').css({ display: 'none' })
         $('.signup-div').css({ display: 'block' })
@@ -65,7 +75,7 @@ $(document).ready(function () {
     $('.login-form-btn').on('click', function () {
         $.post("/accounts/login/", $('.login-form').serialize())
 
-            .done(function () {
+            .done(function (data, textStatus, jqXHR) {
                 $('#message-div').prepend(`
                             <section id="success">
             <div class="icon">
@@ -81,7 +91,9 @@ $(document).ready(function () {
                     $('section').on('click', 'i', (e) => {
                         $(e.target).parent().remove();
                     });
-                })
+                });
+                setCookie('AccessToken', 'Bearer ' + data.access);
+                setCookie('RefreshToken', 'Bearer ' + data.refresh);
             })
 
             .fail(
