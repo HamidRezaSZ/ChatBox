@@ -1,0 +1,50 @@
+{% extends 'accounts/base.html' %} {% block title %}Register{% endblock title %}
+{% block head %}
+<script src="https://use.fontawesome.com/80976cfcfc.js"></script>
+{% endblock head %} {% block body %} {% if message %}
+<section id="success">
+  <div class="icon">
+    <i class="fa fa-smile-o" aria-hidden="true"></i>
+  </div>
+  <h1>Account successfully created!</h1>
+  <i class="fa fa-times succ" aria-hidden="true"></i>
+</section>
+{% elif error%}
+<section id="fail">
+  <div class="icon">
+    <i class="fa fa-frown-o" aria-hidden="true"></i>
+  </div>
+  <h1>Oh! Something went wrong!</h1>
+  <i class="fa fa-times fail" aria-hidden="true"></i>
+</section>
+{% endif %}
+<div class="box">
+  <form action="{% url 'accounts:register' %}" method="post">
+    {% csrf_token %}
+
+    <span class="text-center">Register</span>
+
+    <div class="input-container">
+      <input type="text" name="username" id="username" required />
+      <label for="username">Username</label>
+    </div>
+
+    <div class="input-container">
+      <input type="txt" name="phone_number" id="phone_number" required />
+      <label for="phone_number">Phone Number</label>
+    </div>
+
+    <div class="input-container">
+      <input type="password" name="password" id="password" required />
+      <label for="password">Password</label>
+    </div>
+
+    <div class="input-container">
+      <input type="password" name="password2" id="password2" required />
+      <label for="password2">Confirm Password</label>
+    </div>
+
+    <button type="submit" class="button-5">Sign Up</button>
+  </form>
+</div>
+{% endblock body %}
