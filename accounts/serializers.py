@@ -14,13 +14,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "username", "password", "password2", 'email')
+        fields = ("id", "username", "phone_number", "password", "password2")
 
     def create(self, validated_data):
         if validated_data['password'] != validated_data['password2']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
-        elif validated_data['email'].split('@')[1] in blocklist:
-            raise serializers.ValidationError({"email": "The email domain is blocked."})
 
         validated_data.pop('password2')
         user = User.objects.create_user(**validated_data)
