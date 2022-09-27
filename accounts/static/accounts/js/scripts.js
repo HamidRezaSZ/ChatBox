@@ -31,12 +31,4 @@ $(document).ready(function () {
             });
         });
     });
-    $('button').on('click', function () {
-        $('section').css({ width: '400px' });
-        $('section h1,section p,section i').css({ display: 'block' });
-        $('section .icon').css({
-            borderRadius: '0',
-            opacity: 1
-        })
-    });
 });

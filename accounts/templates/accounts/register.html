@@ -18,10 +18,12 @@
   <i class="fa fa-times fail" aria-hidden="true"></i>
 </section>
 {% endif %}
+<button class="button-24" onClick="window.location='{% url 'home' %}'">
+  Home
+</button>
 <div class="box">
   <form action="{% url 'accounts:register' %}" method="post">
     {% csrf_token %}
-
     <span class="text-center">Register</span>
 
     <div class="input-container">

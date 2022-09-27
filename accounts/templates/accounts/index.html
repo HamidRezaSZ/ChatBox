@@ -1,0 +1,18 @@
+{% extends 'accounts/base.html' %} {% block title %}Home{% endblock title %}
+{%block body %}
+<div class="box">
+  <span class="text-center">Home</span>
+  <button
+    class="button-74"
+    onClick="window.location='{% url 'accounts:register' %}'"
+  >
+    Signup
+  </button>
+  <button
+    class="button-74"
+    onClick="window.location='{% url 'accounts:login' %}'"
+  >
+    Login
+  </button>
+</div>
+{% endblock body %}

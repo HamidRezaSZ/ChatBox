@@ -8,6 +8,12 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 
 
+class Home(GenericAPIView):
+
+    def get(self, request):
+        return render(request, 'accounts/index.html')
+
+
 class Register(CreateAPIView):
     '''
         Register users
