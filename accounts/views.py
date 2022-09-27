@@ -8,6 +8,12 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 
 
+class Home(GenericAPIView):
+
+    def get(self, request):
+        return render(request, 'accounts/index.html')
+
+
 class Register(CreateAPIView):
     '''
         Register users
@@ -19,23 +25,9 @@ class Register(CreateAPIView):
         user_serializers = UserSerializer(data=request.data)
         if user_serializers.is_valid():
             user_serializers.save()
-            context = {'message': 'User created successfully!'}
-            return render(request, 'accounts/register.html', context=context)
+            return Response({'message': 'User created successfully!'}, status=201)
 
-        context = {'error': user_serializers.errors}
-        return render(request, 'accounts/register.html', context=context)
-
-    def get(self, request):
-        return render(request, 'accounts/register.html')
-
-
-class Login(CreateAPIView):
-    '''
-        Login page
-    '''
-
-    def get(self, request):
-        return render(request, 'accounts/login.html')
+        return Response({"message": f"{user_serializers.errors}"}, status=400)
 
 
 class Logout(GenericAPIView):

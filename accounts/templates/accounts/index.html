@@ -1,0 +1,59 @@
+{% extends 'accounts/base.html' %} {%block body %}
+
+<button class="button-24 home-btn" style="display: none">Home</button>
+
+<div class="box">
+  <div class="home-div">
+    <span class="text-center">Home</span>
+    <button class="button-74" id="signup-btn">Signup</button>
+    <button class="button-74" id="login-btn">Login</button>
+  </div>
+
+  <div class="signup-div" style="display: none">
+    <form action="" class="signup-form">
+      {% csrf_token %}
+      <span class="text-center">Register</span>
+
+      <div class="input-container">
+        <input type="text" name="username" id="username" required />
+        <label for="username">Username</label>
+      </div>
+
+      <div class="input-container">
+        <input type="txt" name="phone_number" id="phone_number" required />
+        <label for="phone_number">Phone Number</label>
+      </div>
+
+      <div class="input-container">
+        <input type="password" name="password" id="password" required />
+        <label for="password">Password</label>
+      </div>
+
+      <div class="input-container">
+        <input type="password" name="password2" id="password2" required />
+        <label for="password2">Confirm Password</label>
+      </div>
+    </form>
+    <button class="button-5 signup-form-btn">Sign Up</button>
+  </div>
+
+  <div class="login-div" style="display: none">
+    <form action="" class="login-form">
+      {% csrf_token %}
+      <span class="text-center">Login</span>
+
+      <div class="input-container">
+        <input type="text" name="username" id="username" required />
+        <label for="username">Username</label>
+      </div>
+
+      <div class="input-container">
+        <input type="password" name="password" id="password" required />
+        <label for="password">Password</label>
+      </div>
+    </form>
+    <button class="button-5 login-form-btn">Login</button>
+  </div>
+</div>
+<div id="message-div"></div>
+{% endblock body %}
