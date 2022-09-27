@@ -32,6 +32,9 @@ $(document).ready(function () {
                 <i class="fa fa-times succ" aria-hidden="true"></i>
                 </section>
                 `).ready(function () {
+                    setTimeout(function () {
+                        $('section').fadeOut(400);
+                    }, 4000);
                     $('section').on('click', 'i', (e) => {
                         $(e.target).parent().remove();
                     });
@@ -48,6 +51,9 @@ $(document).ready(function () {
                     <h1>Oh! Something went wrong!</h1>
                     <i class="fa fa-times fail" arfailia-hidden="true"></i>
                     </section>`).ready(function () {
+                        setTimeout(function () {
+                            $('section').fadeOut(400);
+                        }, 4000);
                         $('section').on('click', 'i', (e) => {
                             $(e.target).parent().remove();
                         });
@@ -69,6 +75,9 @@ $(document).ready(function () {
             <i class="fa fa-times succ" aria-hidden="true"></i>
             </section>
             `).ready(function () {
+                    setTimeout(function () {
+                        $('section').fadeOut(400);
+                    }, 4000);
                     $('section').on('click', 'i', (e) => {
                         $(e.target).parent().remove();
                     });
@@ -85,6 +94,9 @@ $(document).ready(function () {
                 <h1>Oh! Something went wrong!</h1>
                 <i class="fa fa-times fail" aria-hidden="true"></i>
                 </section>`).ready(function () {
+                        setTimeout(function () {
+                            $('section').fadeOut(400);
+                        }, 4000);
                         $('section').on('click', 'i', (e) => {
                             $(e.target).parent().remove();
                         });
@@ -92,7 +104,5 @@ $(document).ready(function () {
                 }
             );
     });
-
-
 
 });
