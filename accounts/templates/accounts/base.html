@@ -11,8 +11,10 @@
       rel="stylesheet"
       href="{% static 'accounts/css/styles.css' %}"
     />
+    <script src="{% static 'accounts/js/jquery-3.6.1.min.js' %}"></script>
     <script src="{% static 'accounts/js/scripts.js' %}"></script>
     <title>{% block title %}{% endblock title %}</title>
+    {% block head %}{% endblock head %}
   </head>
   <body>
     {% block body %}{% endblock body %}

@@ -9,21 +9,31 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class Register(CreateAPIView):
+    '''
+        Register users
+    '''
+
     serializer_class = UserSerializer
 
     def post(self, request):
         user_serializers = UserSerializer(data=request.data)
         if user_serializers.is_valid():
             user_serializers.save()
-            return Response({'message': 'User created successfully!'})
+            context = {'message': 'User created successfully!'}
+            return render(request, 'accounts/register.html', context=context)
 
-        return Response({'message': user_serializers.errors})
+        context = {'error': user_serializers.errors}
+        return render(request, 'accounts/register.html', context=context)
 
     def get(self, request):
         return render(request, 'accounts/register.html')
 
 
 class Login(CreateAPIView):
+    '''
+        Login page
+    '''
+
     def get(self, request):
         return render(request, 'accounts/login.html')
 
