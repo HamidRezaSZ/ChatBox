@@ -20,5 +20,6 @@ from accounts.views import Home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('chats/', include('chats.urls')),
     path('', Home.as_view(), name='home'),
 ]
