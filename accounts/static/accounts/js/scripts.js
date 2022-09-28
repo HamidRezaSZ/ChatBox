@@ -44,22 +44,40 @@ $(document).ready(function () {
             })
 
             .fail(
-                function () {
-                    $('#message-div').prepend(`
-                    <section id="fail">
-                    <div class="icon">
-                        <i class="fa fa-frown-o" aria-hidden="true"></i>
-                    </div>
-                    <h1>Oh! Something went wrong!</h1>
-                    <i class="fa fa-times fail" arfailia-hidden="true"></i>
-                    </section>`).ready(function () {
-                        setTimeout(function () {
-                            $('section').fadeOut(600);
-                        }, 4000);
-                        $('section').on('click', 'i', (e) => {
-                            $(e.target).parent().remove();
-                        });
-                    })
+                function (jqXHR, textStatus, errorThrown) {
+                    if (errorThrown == 'Bad Request') {
+                        $('#message-div').prepend(`
+                        <section id="fail">
+                        <div class="icon">
+                            <i class="fa fa-frown-o" aria-hidden="true"></i>
+                        </div>
+                        <h1>The information entered is not correct!</h1>
+                        <i class="fa fa-times fail" arfailia-hidden="true"></i>
+                        </section>`).ready(function () {
+                            setTimeout(function () {
+                                $('section').fadeOut(600);
+                            }, 4000);
+                            $('section').on('click', 'i', (e) => {
+                                $(e.target).parent().remove();
+                            });
+                        })
+                    } else {
+                        $('#message-div').prepend(`
+                        <section id="fail">
+                        <div class="icon">
+                            <i class="fa fa-frown-o" aria-hidden="true"></i>
+                        </div>
+                        <h1>Oh! Something went wrong!</h1>
+                        <i class="fa fa-times fail" arfailia-hidden="true"></i>
+                        </section>`).ready(function () {
+                            setTimeout(function () {
+                                $('section').fadeOut(600);
+                            }, 4000);
+                            $('section').on('click', 'i', (e) => {
+                                $(e.target).parent().remove();
+                            });
+                        })
+                    }
                 }
             );
     });
@@ -88,26 +106,47 @@ $(document).ready(function () {
                 setCookie('AccessToken', 'Bearer ' + data.access);
                 setCookie('RefreshToken', 'Bearer ' + data.refresh);
 
-                window.location = "/chats/";
+                setTimeout(function () {
+                    window.location = "/chats/";
+                }, 1500);
+
             })
 
             .fail(
-                function () {
-                    $('#message-div').prepend(`
-                    <section id="fail">
-                <div class="icon">
-                <i class="fa fa-frown-o" aria-hidden="true"></i>
-                </div>
-                <h1>Oh! Something went wrong!</h1>
-                <i class="fa fa-times fail" aria-hidden="true"></i>
-                </section>`).ready(function () {
-                        setTimeout(function () {
-                            $('section').fadeOut(600);
-                        }, 4000);
-                        $('section').on('click', 'i', (e) => {
-                            $(e.target).parent().remove();
-                        });
-                    })
+                function (jqXHR, textStatus, errorThrown) {
+                    if (errorThrown == 'Unauthorized') {
+                        $('#message-div').prepend(`
+                        <section id="fail">
+                    <div class="icon">
+                    <i class="fa fa-frown-o" aria-hidden="true"></i>
+                    </div>
+                    <h1>The information entered is not correct!</h1>
+                    <i class="fa fa-times fail" aria-hidden="true"></i>
+                    </section>`).ready(function () {
+                            setTimeout(function () {
+                                $('section').fadeOut(600);
+                            }, 4000);
+                            $('section').on('click', 'i', (e) => {
+                                $(e.target).parent().remove();
+                            });
+                        })
+                    } else {
+                        $('#message-div').prepend(`
+                        <section id="fail">
+                    <div class="icon">
+                    <i class="fa fa-frown-o" aria-hidden="true"></i>
+                    </div>
+                    <h1>Oh! Something went wrong!</h1>
+                    <i class="fa fa-times fail" aria-hidden="true"></i>
+                    </section>`).ready(function () {
+                            setTimeout(function () {
+                                $('section').fadeOut(600);
+                            }, 4000);
+                            $('section').on('click', 'i', (e) => {
+                                $(e.target).parent().remove();
+                            });
+                        })
+                    }
                 }
             );
     });
