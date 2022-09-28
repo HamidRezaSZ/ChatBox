@@ -1,0 +1,25 @@
+<form action="" class="signup-form">
+  {% csrf_token %}
+  <span class="text-center">Register</span>
+
+  <div class="input-container">
+    <input type="text" name="username" id="username" required />
+    <label for="username">Username</label>
+  </div>
+
+  <div class="input-container">
+    <input type="txt" name="phone_number" id="phone_number" required />
+    <label for="phone_number">Phone Number</label>
+  </div>
+
+  <div class="input-container">
+    <input type="password" name="password" id="password" required />
+    <label for="password">Password</label>
+  </div>
+
+  <div class="input-container">
+    <input type="password" name="password2" id="password2" required />
+    <label for="password2">Confirm Password</label>
+  </div>
+</form>
+<button class="button-5 signup-form-btn">Sign Up</button>
