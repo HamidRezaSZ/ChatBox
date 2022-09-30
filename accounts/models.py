@@ -32,4 +32,4 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     phone_validator = RegexValidator(regex=r'^(0|\+?98)9\d{9}$')
     phone_number = models.CharField(max_length=15, validators=[phone_validator], unique=True, blank=True, null=True)
-    avatar = models.ImageField()
+    avatar = models.ImageField(upload_to='img/', default='img/default-avatar.jpeg')
