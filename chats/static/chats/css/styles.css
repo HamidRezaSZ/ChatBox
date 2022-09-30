@@ -30,6 +30,9 @@ body,html{
 .card-footer{
 border-radius: 0 0 15px 15px !important;
     border-top: 0 !important;
+    position:absolute;
+    width: 95%;
+    bottom: 0;
 }
 .container{
     align-content: center;

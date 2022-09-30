@@ -7,50 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="{% static 'accounts/images/Chat.ico' %}" />
     <script src="{% static 'accounts/js/jquery-3.6.1.min.js' %}"></script>
-    <script>
-      function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(";");
-        for (var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == " ") c = c.substring(1, c.length);
-          if (c.indexOf(nameEQ) == 0)
-            return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-      }
-
-      function setCookie(name, value, days) {
-        var expires = "";
-        if (days) {
-          var date = new Date();
-          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-          expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-      }
-
-      $.post("/accounts/token/verify/", {
-        token: getCookie("AccessToken").split(" ")[1],
-      }).fail(function (jqXHR, textStatus, errorThrown) {
-        if (errorThrown == "Unauthorized") {
-          $.post("/accounts/token/refresh/", {
-            refresh: getCookie("RefreshToken").split(" ")[1],
-          })
-            .done(function (data, textStatus, jqXHR) {
-              setCookie("AccessToken", "Bearer " + data.access);
-              setCookie("RefreshToken", "Bearer " + data.refresh);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-              if (errorThrown == "Unauthorized") {
-                window.location = "/";
-              }
-            });
-        } else {
-          window.location = "/";
-        }
-      });
-    </script>
     <link
       type="text/css"
       rel="stylesheet"

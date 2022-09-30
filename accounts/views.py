@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-from .serializers import UserSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import status
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth import login, authenticate, logout
+from .serializers import LoginSerializers, UserSerializer
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
 
 
 class Home(GenericAPIView):
@@ -30,18 +30,32 @@ class Register(CreateAPIView):
         return Response({"message": f"{user_serializers.errors}"}, status=400)
 
 
-class Logout(GenericAPIView):
+class Login(GenericAPIView):
     '''
-        Logout users with block token with jwt.
+        Login users.
     '''
 
-    permission_classes = (IsAuthenticated, )
+    serializer_class = LoginSerializers
 
     def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception:
-            return Response({'detail': 'Token is invalid or expired'}, status=status.HTTP_400_BAD_REQUEST)
+        serializers = LoginSerializers(data=request.data)
+
+        if serializers.is_valid():
+            user = authenticate(request, username=serializers.data['username'], password=serializers.data['password'])
+            if user is not None:
+                login(request, user)
+                return Response({'message': 'Logged in successfully!'}, status=200)
+
+            return Response('Username or password is incorrect !', 400)
+
+        return Response({"message": f"{serializers.errors}"}, status=400)
+
+
+class Logout(GenericAPIView):
+    '''
+        Logout users.
+    '''
+
+    def post(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse("home"))

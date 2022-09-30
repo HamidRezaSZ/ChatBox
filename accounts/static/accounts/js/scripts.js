@@ -1,5 +1,3 @@
-import { setCookie } from './cookie.js';
-
 $(document).ready(function () {
 
     $('#signup-btn').on('click', function () {
@@ -41,6 +39,8 @@ $(document).ready(function () {
                         $(e.target).parent().remove();
                     });
                 })
+
+                $('.signup-form')[0].reset()
             })
 
             .fail(
@@ -103,13 +103,9 @@ $(document).ready(function () {
                     });
                 });
 
-                setCookie('AccessToken', 'Bearer ' + data.access);
-                setCookie('RefreshToken', 'Bearer ' + data.refresh);
-
                 setTimeout(function () {
                     window.location = "/chats/";
                 }, 1500);
-
             })
 
             .fail(

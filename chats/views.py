@@ -4,6 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Messages, Chat
 from .serializers import ChatSerializer, MessagesSerializer
 from rest_framework.response import Response
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 
 class Chats(GenericAPIView):
@@ -12,12 +14,14 @@ class Chats(GenericAPIView):
     '''
 
     def get(self, request):
-        return render(request, 'chats/chats.html')
+        chats = Chat.objects.filter(owner=request.user)
+        context = {'chats': chats}
+
+        return render(request, 'chats/chats.html', context=context)
 
 
 class ChatView(ListCreateAPIView):
     serializer_class = ChatSerializer
-    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         serializers = ChatSerializer(data=request.data)
@@ -35,7 +39,6 @@ class ChatView(ListCreateAPIView):
 
 class MessageView(ListCreateAPIView):
     serializer_class = MessagesSerializer
-    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         serializers = MessagesSerializer(data=request.data)
