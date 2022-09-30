@@ -1,11 +1,8 @@
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
-from rest_framework.permissions import IsAuthenticated
 from .models import Messages, Chat
 from .serializers import ChatSerializer, MessagesSerializer
 from rest_framework.response import Response
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 
 
 class Chats(GenericAPIView):
