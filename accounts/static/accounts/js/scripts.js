@@ -20,7 +20,7 @@ $(document).ready(function () {
     });
 
     $('.signup-form-btn').on('click', function () {
-        $.post("/accounts/register/", $('.signup-form').serialize())
+        $.post("/accounts/register/", $('.signup-form').find("input[name!=csrfmiddlewaretoken]").serialize())
 
             .done(function () {
                 $('#message-div').prepend(`
@@ -83,7 +83,7 @@ $(document).ready(function () {
     });
 
     $('.login-form-btn').on('click', function () {
-        $.post("/accounts/login/", $('.login-form').serialize())
+        $.post("/accounts/login/", $('.login-form').find("input[name!=csrfmiddlewaretoken]").serialize())
 
             .done(function (data, textStatus, jqXHR) {
                 $('#message-div').prepend(`
