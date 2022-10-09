@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from .models import Messages, Chat
-from .serializers import ChatSerializer, MessagesSerializer
+from .serializers import MessagesSerializer
 from rest_framework.response import Response
 
 
@@ -17,19 +17,11 @@ class Chats(GenericAPIView):
         return render(request, 'chats/chats.html', context=context)
 
 
-class ChatView(ListCreateAPIView):
-    serializer_class = ChatSerializer
-
-    def get(self, request):
-        user = request.GET.get('user')
-        return Chat.objects.filter(owner=request.user, user=user)
-
-
 class MessageView(ListCreateAPIView):
     serializer_class = MessagesSerializer
 
     def post(self, request):
-        serializers = MessagesSerializer(data=request.data)
+        serializers = MessagesSerializer(data=request.data, context={'user': request.user})
 
         if serializers.is_valid():
             serializers.save()

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Chat, Messages
+from accounts.models import User
 
 
 class MessagesSerializer(serializers.ModelSerializer):
@@ -17,9 +18,10 @@ class MessagesSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context.get('user')
+        username = User.objects.get(username=validated_data['username'])
 
-        chat_name = Chat.objects.get_or_create(owner=user, user=validated_data['username'])
+        chat_obj, created = Chat.objects.get_or_create(owner=user, user=username)
 
-        obj = Messages.objects.create(chat=chat_name, message=validated_data['message'])
+        obj = Messages.objects.create(chat=chat_obj, message=validated_data['message'])
 
         return obj
