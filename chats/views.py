@@ -20,15 +20,6 @@ class Chats(GenericAPIView):
 class ChatView(ListCreateAPIView):
     serializer_class = ChatSerializer
 
-    def post(self, request):
-        serializers = ChatSerializer(data=request.data)
-
-        if serializers.is_valid():
-            serializers.save()
-            return Response({'message': 'Your chat created successfully'}, 201)
-
-        return Response(f"{serializers.errors}", 400)
-
     def get(self, request):
         user = request.GET.get('user')
         return Chat.objects.filter(owner=request.user, user=user)
