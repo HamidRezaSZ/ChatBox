@@ -10,4 +10,4 @@ class Chat(models.Model):
 class Messages(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     message = models.TextField()
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField('created at', auto_now_add=True)
