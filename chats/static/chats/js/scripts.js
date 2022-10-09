@@ -24,4 +24,10 @@ $(document).ready(function () {
                 console.log("Fail")
             })
     })
+
+    $('.contacts').on('click', 'li', (e) => {
+        $('.chat-page').css({ display: 'block' });
+        $('.active_chat span')[0].innerText = $(e.target)[0].innerText;
+        $('.img-chat').attr('src', $(e.target).parent().parent().children().first().children().first().attr('src'));
+    });
 });
