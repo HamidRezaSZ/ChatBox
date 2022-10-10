@@ -3,6 +3,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from .models import Messages, Chat
 from .serializers import MessagesSerializer
 from rest_framework.response import Response
+from accounts.models import User
 
 
 class Chats(GenericAPIView):
@@ -31,4 +32,7 @@ class MessageView(ListCreateAPIView):
 
     def get(self, request):
         user = request.GET.get('user')
-        return Messages.objects.filter(chat__owner=request.user, chat__user=user)
+        user = User.objects.get(username=user)
+        msg_obj = Messages.objects.filter(chat__owner=request.user, chat__user=user)
+        msg = MessagesSerializer(msg_obj, many=True)
+        return Response(msg.data, status=200)

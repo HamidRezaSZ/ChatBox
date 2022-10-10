@@ -6,5 +6,5 @@ app_name = "chats"
 
 urlpatterns = [
     path('', login_required(Chats.as_view()), name='chats_home'),  # chats home page
-    path('message/create/', login_required(MessageView.as_view()), name='create_message'),  # create message
+    path('message/', login_required(MessageView.as_view()), name='message'),  # create/get message
 ]

@@ -3,6 +3,21 @@ from .models import Chat, Messages
 from accounts.models import User
 
 
+class UserOwnerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', 'avatar')
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    owner = UserOwnerSerializer(read_only=True)
+
+    class Meta:
+        model = Chat
+        fields = ('owner',)
+
+
 class MessagesSerializer(serializers.ModelSerializer):
     '''
         Messages serializers
@@ -10,11 +25,11 @@ class MessagesSerializer(serializers.ModelSerializer):
 
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     username = serializers.CharField(write_only=True)
-    chat = serializers.CharField(read_only=True)
+    chat = ChatSerializer(read_only=True)
 
     class Meta:
         model = Messages
-        fields = '__all__'
+        fields = ('created_at', 'chat', 'message', 'username')
 
     def create(self, validated_data):
         user = self.context.get('user')

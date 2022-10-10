@@ -70,20 +70,7 @@
           </div>
         </div>
         <div class="card-body msg_card_body">
-          {% for message in messages %}
-          <div class="d-flex justify-content-start mb-4">
-            <div class="img_cont_msg">
-              <img
-                src="{{ user.avatar }}"
-                class="rounded-circle user_img_msg"
-              />
-            </div>
-            <div class="msg_cotainer">
-              {{ message.message }}
-              <span class="msg_time">{{ message.created_at }}</span>
-            </div>
-          </div>
-          {% endfor %}
+          <div class="message-div"></div>
           <div class="card-footer">
             <div class="input-group">
               <div class="input-group-append">
